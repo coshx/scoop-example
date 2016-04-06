@@ -18,4 +18,10 @@ public class RouterModule {
     public AppRouter provideAppRouter() {
         return new AppRouter(new ScreenScooper());
     }
+
+    @Provides
+    @Singleton
+    public PopupRouter providePopupRouter() {
+        return new PopupRouter(new ScreenScooper());
+    }
 }

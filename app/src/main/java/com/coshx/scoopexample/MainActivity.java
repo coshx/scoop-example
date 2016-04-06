@@ -11,6 +11,9 @@ import com.lyft.scoop.Scoop;
 import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
+    private static MainActivity instance;
+
+    private ActivityComponent activityComponent;
 
     private Scoop rootScoop;
 
@@ -20,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        instance = this;
+        activityComponent = ScoopExampleApplication
+            .getApplicationComponent()
+            .activityComponent(new ActivityModule(this));
 
         ScoopExampleApplication.getApplicationComponent().inject(this);
 
@@ -49,5 +57,9 @@ public class MainActivity extends AppCompatActivity {
             // No more element in history, end the app
             finish();
         }
+    }
+
+    public static ActivityComponent getActivityModule() {
+        return instance.activityComponent;
     }
 }

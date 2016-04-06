@@ -1,6 +1,8 @@
 package com.coshx.scoopexample;
 
 import com.coshx.scoopexample.components.BodyUiContainer;
+import com.coshx.scoopexample.components.PopupUiContainer;
+import com.coshx.scoopexample.controllers.ChocolateController;
 import com.coshx.scoopexample.controllers.PistachioController;
 import com.coshx.scoopexample.routers.RouterModule;
 
@@ -17,9 +19,15 @@ import dagger.Component;
     RouterModule.class
 })
 public interface ApplicationComponent {
+    ActivityComponent activityComponent(ActivityModule activityModule);
+
     void inject(MainActivity mainActivity);
 
     void inject(PistachioController pistachioController);
 
+    void inject(ChocolateController chocolateController);
+
     void inject(BodyUiContainer bodyUiContainer);
+
+    void inject(PopupUiContainer popupUiContainer);
 }

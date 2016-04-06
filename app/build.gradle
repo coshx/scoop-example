@@ -29,4 +29,9 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.1'
     compile 'com.lyft:scoop:0.3.9'
     compile 'com.jakewharton:butterknife:7.0.1'
+
+    compile('de.keyboardsurfer.android.widget:crouton:1.8.5@aar') {
+        // exclusion is not necessary, but generally a good idea.
+        exclude group: 'com.google.android', module: 'support-v4'
+    }
 }
