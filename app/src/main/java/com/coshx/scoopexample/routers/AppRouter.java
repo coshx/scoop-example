@@ -1,41 +1,36 @@
 package com.coshx.scoopexample.routers;
 
-import com.lyft.scoop.RouteChange;
-import com.lyft.scoop.Router;
-import com.lyft.scoop.ScreenScooper;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.coshx.scoopexample.screens.ShowFooterScreen;
+import com.lyft.scoop.Screen;
 
 /**
  * AppRouter
  * <p/>
  */
-public class AppRouter extends Router {
-    public interface ScoopChangedObserver {
-        void onScoopChanged(RouteChange routeChange);
+public class AppRouter {
+    private BodyRouter   bodyRouter;
+    private FooterRouter footerRouter;
+
+    AppRouter(BodyRouter bodyRouter, FooterRouter footerRouter) {
+        this.bodyRouter = bodyRouter;
+        this.footerRouter = footerRouter;
     }
 
-    private List<ScoopChangedObserver> observers;
+    public void goTo(Screen screen) {
+        bodyRouter.goTo(screen);
 
-    public AppRouter(ScreenScooper screenScooper) {
-        super(screenScooper);
-
-        observers = new ArrayList<>();
-    }
-
-    @Override
-    protected void onScoopChanged(RouteChange routeChange) {
-        for (ScoopChangedObserver observer : observers) {
-            observer.onScoopChanged(routeChange);
+        // Trigger footer's screen here if needed (e.g for updating footer)
+        if (!footerRouter.hasActiveScreen()) {
+            footerRouter.goTo(new ShowFooterScreen());
         }
     }
 
-    public void observe(ScoopChangedObserver observer) {
-        observers.add(observer);
+    public boolean hasActiveScreen() {
+        return bodyRouter.hasActiveScreen();
     }
 
-    public void stopObserving(ScoopChangedObserver observer) {
-        observers.remove(observer);
+    public boolean goBack() {
+        footerRouter.goBack();
+        return bodyRouter.goBack();
     }
 }

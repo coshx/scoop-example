@@ -4,39 +4,39 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.coshx.scoopexample.ScoopExampleApplication;
-import com.coshx.scoopexample.routers.BodyRouter;
+import com.coshx.scoopexample.routers.FooterRouter;
 import com.lyft.scoop.RouteChange;
 import com.lyft.scoop.UiContainer;
 
 import javax.inject.Inject;
 
 /**
- * BodyUiContainer
+ * FooterUiComponent
  * <p/>
  */
-public class BodyUiContainer extends UiContainer {
+public class FooterUiContainer extends UiContainer {
 
-    private BodyRouter.ScoopChangedObserver observer;
+    private FooterRouter.ScoopChangedObserver observer;
 
     @Inject
-    BodyRouter bodyRouter;
+    FooterRouter footerRouter;
 
-    public BodyUiContainer(Context context, AttributeSet attrs) {
+    public FooterUiContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         ScoopExampleApplication.getApplicationComponent().inject(this);
-        observer = new BodyRouter.ScoopChangedObserver() {
+        observer = new FooterRouter.ScoopChangedObserver() {
             @Override
             public void onScoopChanged(RouteChange routeChange) {
                 goTo(routeChange);
             }
         };
-        bodyRouter.observe(observer);
+        footerRouter.observe(observer);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        bodyRouter.stopObserving(observer);
+        footerRouter.stopObserving(observer);
     }
 }
