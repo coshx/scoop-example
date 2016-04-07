@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import com.coshx.scoopexample.ScoopExampleApplication;
-import com.coshx.scoopexample.routers.BodyRouter;
+import com.coshx.scoopexample.routers.AppRouter;
 import com.lyft.scoop.RouteChange;
 import com.lyft.scoop.UiContainer;
 
@@ -16,27 +16,27 @@ import javax.inject.Inject;
  */
 public class BodyUiContainer extends UiContainer {
 
-    private BodyRouter.ScoopChangedObserver observer;
+    private AppRouter.ScoopChangedObserver observer;
 
     @Inject
-    BodyRouter bodyRouter;
+    AppRouter appRouter;
 
     public BodyUiContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         ScoopExampleApplication.getApplicationComponent().inject(this);
-        observer = new BodyRouter.ScoopChangedObserver() {
+        observer = new AppRouter.ScoopChangedObserver() {
             @Override
             public void onScoopChanged(RouteChange routeChange) {
                 goTo(routeChange);
             }
         };
-        bodyRouter.observe(observer);
+        appRouter.observe(observer);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        bodyRouter.stopObserving(observer);
+        appRouter.stopObserving(observer);
     }
 }
