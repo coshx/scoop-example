@@ -37,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
         rootScoop = new Scoop.Builder("root").build();
         // Declare R.id.main_layout on the root layout into activity_main
         rootScoop.inflate(R.layout.root, (ViewGroup) findViewById(R.id.main_layout), true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         // First screen to load
         if (!appRouter.hasActiveScreen()) {
@@ -55,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (!appRouter.goBack()) {
             // No more element in history, end the app
-            finish();
+            super.onBackPressed();
         }
     }
 
-    public static ActivityComponent getActivityModule() {
+    public static ActivityComponent getActivityComponent() {
         return instance.activityComponent;
     }
 }

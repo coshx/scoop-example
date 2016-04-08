@@ -41,7 +41,7 @@ public class PopupController extends ViewController {
     public void onAttach() {
         super.onAttach();
 
-        MainActivity.getActivityModule().inject(this);
+        MainActivity.getActivityComponent().inject(this);
 
         Screen screen = Screen.fromController(this);
         if (screen instanceof InformPopupScreen) {
