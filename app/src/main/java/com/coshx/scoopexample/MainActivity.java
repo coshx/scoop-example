@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        // Create scoops
+        // Create scoop
         rootScoop = new Scoop.Builder("root").build();
         // Declare R.id.main_layout on the root layout into activity_main
         rootScoop.inflate(R.layout.root, (ViewGroup) findViewById(R.id.main_layout), true);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (!appRouter.goBack()) {
-            // No more element in history, end the app
+            // No more element in history, end the activity
             super.onBackPressed();
         }
     }
